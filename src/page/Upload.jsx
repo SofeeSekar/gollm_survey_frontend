@@ -3,6 +3,7 @@ import bgIMG from "../assets/logo/bg-img.png";
 import { getFullUrl } from "../utils";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const Upload = () => {
   const UploadRef = useRef();
@@ -13,7 +14,7 @@ const Upload = () => {
   const navigate = useNavigate();
 
   // Retrieve the session ID from sessionStorage
-  const sessionId = sessionStorage.getItem("session_id");
+  const sessionId = uuidv4();
 
   // Handle file selection from the system
   const handleFileChange = (e) => {
@@ -55,11 +56,15 @@ const Upload = () => {
     const formData = new FormData();
     formData.append("file", files);
 
-    try {
+    // if(sessionStorage.getItem("session_id")){
+    //   sessionStorage.removeItem("session_id");
+    // } 
+    sessionStorage.setItem('session_id',sessionId)
+    try {      
       const response = await axios.post(getFullUrl(`/upload/`), formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "session-id": sessionId, // Ensure the session ID is sent with the request
+          "session-id": sessionId,
         },
       });
       if(response?.data){

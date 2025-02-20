@@ -8,6 +8,24 @@
   box-sizing: border-box;
 }
 
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* Popup styling */
 .popup-overlay {
   position: fixed;
@@ -48,7 +66,58 @@
 .close-popup:hover {
   color: #333;
 }
+.preview-section {
+  margin-bottom: 20px; /* Space between sections */
+}
 
+select {
+  padding: 10px; /* Padding for select input */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ccc; /* Border color */
+  width: 650px; /* Full width */
+  margin-bottom: 10px; /* Space below select */
+  background-color: #1a2c3f;
+  color: #fff
+}
+
+.preview {
+  background-color: #c2daf2; /* Light background for detailed preview */
+  padding: 25px 10px; /* Padding for content */
+  border: 1px solid #ccc; /* Border for visibility */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.arrow-indicator {
+  margin-left: 10px; /* Space between text and arrow */
+}
+
+.generate-quantitative-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: fit-content;
+}
+
+.generate-quantitative-btn:hover {
+  background-color: #45a049;
+}
+
+.generate-quantitative-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Loading state button */
+.generate-quantitative-btn[disabled] {
+  background-color: #cccccc;
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

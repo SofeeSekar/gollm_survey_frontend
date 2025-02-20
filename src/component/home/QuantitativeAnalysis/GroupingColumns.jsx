@@ -2,12 +2,31 @@ import React, { useEffect,useState } from "react";
 import Checkbox from "../../tools/checkbox";
 import CustomCheckbox from "../../tools/checkbox";
 import Popup from "../../tools/Popup";
-
+import { getFullUrl } from '../../../utils';
 const GroupingColumns = ({ groupingData, setColumns }) => {
   const [selectedColumns, setSelectedColumns] = useState([]);
   const [reason, setReason] = useState("");
   useEffect(() => {setSelectedColumns(groupingData)}, [groupingData]);
   const fileName = sessionStorage.getItem("file_name") ?? "No file available";
+  const sessionId = sessionStorage.getItem("session_id");
+  const handleGroupingColumnSelectionSave = () => {
+    // setUsefulColumns(selectedColumns);
+    const payload = selectedColumns.filter((item) => item.selected).map((item) => item.column_name);
+    fetch(getFullUrl("/submit_group_by_columns/"), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "session-id": sessionId,
+      },
+      body: JSON.stringify({ group_by_columns: payload }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          setColumns({page: "final" });
+        }
+      });
+  };
 
   return (
     <div className="bg-[#E1E5EA] rounded-xl p-6 w-3/5 flex flex-col gap-4">
@@ -88,7 +107,7 @@ const GroupingColumns = ({ groupingData, setColumns }) => {
         >
           Back to Analysis columns
         </button>
-        <button   onClick={() => setColumns({page: "final"})} className="w-fit cursor-pointer bg-[#00425F] text-white border border-[#00425F] py-1 px-5 text-sm rounded-full">
+        <button   onClick={() => handleGroupingColumnSelectionSave()} className="w-fit cursor-pointer bg-[#00425F] text-white border border-[#00425F] py-1 px-5 text-sm rounded-full">
           Proceed to final columns selection
         </button>
       </div>

@@ -11,15 +11,9 @@ const AnalysisColumns = ({ setColumns }) => {
   const [selectedColumns, setSelectedColumns] = useState([]);
   const [reason, setReason] = useState("");
   const fileName = sessionStorage.getItem("file_name") ?? "No file available";
+  const sessionId = sessionStorage.getItem("session_id");
   
   useEffect(() => {setSelectedColumns(state)}, [state]);
-    if (!sessionStorage.getItem("session_id")) {
-      sessionStorage.setItem("session_id", uuidv4());
-    }
-    
-    const sessionId = sessionStorage.getItem("session_id");
-    console.log(sessionId, "asdas");
-    
 
     const handleColumnSelectionSave = () => {
       // setUsefulColumns(selectedColumns);
@@ -28,7 +22,7 @@ const AnalysisColumns = ({ setColumns }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "session-id": '16a3e09d-e93e-465f-af85-7ff8a593d1da',
+          "session-id": sessionId,
         },
         body: JSON.stringify({ useful_columns: payload }),
       })

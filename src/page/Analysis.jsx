@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../component/sidebar/Sidebar";
 import { Amazon, Retouch, Summary, Table } from "../assets";
 import AnalysisColumns from "../component/home/QuantitativeAnalysis/AnalysisColumn";
@@ -13,13 +13,20 @@ const Analysis = () => {
     page: "analysis",
     data: [],
   });
-
   const analysisList = [
     { title: "Quantitative Analysis", icon: Amazon },
     { title: "Cluster Analysis", icon: Retouch },
     { title: "Introduction Analysis", icon: Summary },
     { title: "Sentiment Analysis", icon: Table },
   ];
+
+  useEffect(() => {
+    const path = window.location.pathname?.split("-")[0]?.substring(1) ?? "";
+    const currentStage = analysisList.find(({title}) => path.includes(title.split(" ")[0]?.toLocaleLowerCase()));
+    if(currentStage){
+      setCurrentAnalysis(currentStage?.title);
+    }
+  }, []);  
 
   const switchComponents = () => {
     switch (quantitativeColumns?.page) {
@@ -35,7 +42,8 @@ const Analysis = () => {
           />
         );
       case "final":
-        return <FinalColumn setColumns={setQuantitativeColumns} />;
+        return <FinalColumn finalData={quantitativeColumns?.data}
+         setColumns={setQuantitativeColumns} />;
       default:
         <AnalysisColumns />;
         break;
