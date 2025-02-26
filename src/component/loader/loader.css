@@ -1,0 +1,22 @@
+@keyframes infiniteLoad {
+  0% {
+    left: 0%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-infinite-load {
+  animation: infiniteLoad 2s linear infinite;
+}
+
+.dotted-border {
+  width: 100%;
+  height: 20px;
+  background: 
+    linear-gradient(to right, #0c4a6e 50%, transparent 50%) repeat-x;
+  background-size: 10px 2px; /* Adjust width and spacing */
+  border-radius: 10px 10px 0 0;
+  background-position: top;
+}

@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import Popup from '../../tools/Popup';
 const AnalysisColumns = ({ setColumns }) => {
   const { state } = useLocation();
+  console.log(state);
   
   const [selectedColumns, setSelectedColumns] = useState([]);
   const [reason, setReason] = useState("");

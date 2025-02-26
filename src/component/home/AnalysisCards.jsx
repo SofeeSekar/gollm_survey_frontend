@@ -46,12 +46,12 @@ export default function AnalysisCards() {
             <p className="text-[#00425F] text-sm text-left">{item.description}</p>
           </div>
         ))}
-        <div
+        {/* <div
           className="relative left-[500px] cursor-pointer self-center bg-[#00425F] w-fit text-white px-10 py-2 pb-3 mt-8 text-base rounded-[50px]"
           onClick={() => navigate("/upload")}
         >
           Create my report
-        </div>
+        </div> */}
       </div>
     );
   }

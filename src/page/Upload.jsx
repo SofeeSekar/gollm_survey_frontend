@@ -59,6 +59,7 @@ const Upload = () => {
     // if(sessionStorage.getItem("session_id")){
     //   sessionStorage.removeItem("session_id");
     // } 
+    
     sessionStorage.setItem('session_id',sessionId)
     try {      
       const response = await axios.post(getFullUrl(`/upload/`), formData, {

@@ -10,7 +10,7 @@ const Popup = ({ popupContent, closePopup }) => {
           <button className="close-popup" onClick={closePopup}>
             &times;
           </button>
-          <h4 className="text-center text-xl font-bold py-4">Reason</h4>
+          <h4 className="text-center text-xl font-bold py-4">Select another file</h4>
           <p className="text-md">{popupContent}</p>
         </div>
       </div>
