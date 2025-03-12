@@ -198,7 +198,7 @@ console.log(loadingRef);
                         <h4>Frequency Plot</h4>
                         {data?.visualization_url ? (
                           <img
-                            src={`http://localhost:8000/${data?.visualization_url}`}
+                            src={getFullUrl(data?.visualization_url)}
                             alt={`Visualization for ${data?.column_name}`}
                             className="frequency-plot"
                           />
@@ -218,13 +218,13 @@ console.log(loadingRef);
                                 className="grouped-visualization-section"
                               >
                                 <img
-                                  src={`http://localhost:8000/${plotUrl}`}
+                                  src={getFullUrl(plotUrl)}
                                   alt={`Grouped Visualization for ${data.column_name}`}
                                   className="grouped-visualization"
                                 />
                                 <img
                                   style={{ border: "5px solid red" }}
-                                  src={`http://localhost:8000/${legendUrl}`}
+                                  src={getFullUrl(legendUrl)}
                                   alt={`Legend for Grouped Visualization of ${data.column_name}`}
                                   className="legend-image"
                                 />

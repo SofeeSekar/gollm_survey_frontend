@@ -12,19 +12,24 @@ const QuantitativeAnalysis = ({ setColumns }) => {
   const [previewData, setPreviewData] = useState([]);
   const loadingRef = useRef(true);
   const navigate = useNavigate();
- useEffect(() => {
+  useEffect(() => {
     const path = window.location.pathname?.split("-")[0]?.substring(1) ?? "";
-    const currentStage = analysisList.find(({title}) => path.includes(title.split(" ")[0]?.toLocaleLowerCase()));
-    if(currentStage){
+    const currentStage = analysisList.find(({ title }) =>
+      path.includes(title.split(" ")[0]?.toLocaleLowerCase())
+    );
+    if (currentStage) {
       setCurrentAnalysis(currentStage?.title);
     }
-  }, []);  
+  }, []);
 
   useEffect(() => {
     if (loadingRef.current) {
       const handleGenerateQuantReport = async () => {
-       const response = await fetch(getFullUrl(
-            `/generate_quant_report/?session_id=${sessionStorage.getItem("session_id")}`
+        const response = await fetch(
+          getFullUrl(
+            `/generate_quant_report/?session_id=${sessionStorage.getItem(
+              "session_id"
+            )}`
           )
         )
           .then((response) => {
@@ -33,15 +38,15 @@ const QuantitativeAnalysis = ({ setColumns }) => {
             }
             return response.json();
           })
-        .catch((fetchError) => {
+          .catch((fetchError) => {
             console.error("Error fetching preview data:", fetchError);
             setError("Error fetching preview data. Please try again later.");
-        })
-        .finally(() => {
+          })
+          .finally(() => {
             loadingRef.current = false;
-        });
+          });
         setPreviewData(response);
-    };
+      };
       loadingRef.current = false;
       handleGenerateQuantReport();
     }
@@ -53,8 +58,8 @@ const QuantitativeAnalysis = ({ setColumns }) => {
     { title: "Introduction Analysis", icon: Summary },
     { title: "Sentiment Analysis", icon: Table },
   ];
-  console.log( previewData.map((data, index) => (data)));
-  
+  console.log(previewData.map((data, index) => data));
+
   return (
     <div className="bg-[#00425F] h-full w-full flex justify-between min-h-[93vh]">
       <Sidebar className={"fixed top-16"}>
@@ -191,7 +196,7 @@ const QuantitativeAnalysis = ({ setColumns }) => {
                         <h4>Frequency Plot</h4>
                         {data?.visualization_url ? (
                           <img
-                            src={`http://localhost:8000/${data?.visualization_url}`}
+                            src={getFullUrl(data?.visualization_url)}
                             alt={`Visualization for ${data?.column_name}`}
                             className="frequency-plot"
                           />
@@ -211,13 +216,13 @@ const QuantitativeAnalysis = ({ setColumns }) => {
                                 className="grouped-visualization-section"
                               >
                                 <img
-                                  src={`http://localhost:8000/${plotUrl}`}
+                                  src={getFullUrl(plotUrl)}
                                   alt={`Grouped Visualization for ${data.column_name}`}
                                   className="grouped-visualization"
                                 />
                                 <img
                                   style={{ border: "5px solid red" }}
-                                  src={`http://localhost:8000/${legendUrl}`}
+                                  src={getFullUrl(legendUrl)}
                                   alt={`Legend for Grouped Visualization of ${data.column_name}`}
                                   className="legend-image"
                                 />
@@ -232,13 +237,16 @@ const QuantitativeAnalysis = ({ setColumns }) => {
                   ))}
               </div>
               <div className="w-full text-center">
-                <DownloadSection className="w-fit m-2 cursor-pointer  text-[#00425F] border border-[#00425F] py-1 px-5 text-sm rounded-full mr-2"
-            downloadEndpoint={getFullUrl(
-              `/download_quant_report/?session_id=${sessionStorage.getItem("session_id")}`
-            )}
-            fileType="quant_report"
-            buttonText={"Download Quantitative Report"}
-          />
+                <DownloadSection
+                  className="w-fit m-2 cursor-pointer  text-[#00425F] border border-[#00425F] py-1 px-5 text-sm rounded-full mr-2"
+                  downloadEndpoint={getFullUrl(
+                    `/download_quant_report/?session_id=${sessionStorage.getItem(
+                      "session_id"
+                    )}`
+                  )}
+                  fileType="quant_report"
+                  buttonText={"Download Quantitative Report"}
+                />
                 <button
                   onClick={() => navigate("/cluster-analysis")}
                   className="w-fit cursor-pointer bg-[#00425F] text-white border border-[#00425F] py-1 px-5 text-sm rounded-full"

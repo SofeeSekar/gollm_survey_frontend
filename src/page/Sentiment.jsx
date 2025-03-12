@@ -173,11 +173,11 @@ const Sentiment = () => {
                           {sentimentVisuals[columnName] && (
                             <div className="sample-chart">
                               <img
-                                src={sentimentVisuals[columnName].bar_plot}
+                                src={getFullUrl('/'+sentimentVisuals[columnName].bar_plot)}
                                 alt={`Bar chart for ${columnName}`}
                               />
                               <img
-                                src={sentimentVisuals[columnName].donut_chart}
+                                src={getFullUrl('/'+sentimentVisuals[columnName].donut_chart)}
                                 alt={`Donut chart for ${columnName}`}
                               />
                             </div>

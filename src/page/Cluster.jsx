@@ -41,7 +41,6 @@ const Cluster = () => {
           }
           const data = await response.json();
           setPreviewData(data);
-          
         } catch (fetchError) {
           loadingRef.current = false;
           console.error("Error fetching cluster preview data:", fetchError);
@@ -52,14 +51,11 @@ const Cluster = () => {
       fetchClusterReportData();
     }
   }, []);
-console.log(loadingRef);
+  console.log(loadingRef);
 
- 
   return (
     <div className="bg-[#00425F] h-full w-full flex justify-between min-h-[92vh]">
-      <div
-        className="mt-20 bg-white rounded-tl-xl p-8 flex justify-center w-full"
-      >
+      <div className="mt-20 bg-white rounded-tl-xl p-8 flex justify-center w-full">
         <div className="bg-[#E1E5EA] rounded-xl p-6 w-3/5 flex flex-col gap-4 h-fit">
           <h2 className="text-[#00425F] font-bold text-[38px]">
             Cluster Analysis
@@ -143,7 +139,7 @@ console.log(loadingRef);
                         <h4>Frequency Plot</h4>
                         {data?.visualization_url ? (
                           <img
-                            src={`http://localhost:8000/${data?.visualization_url}`}
+                            src={getFullUrl('/' + data?.visualization_url)}
                             alt={`Visualization for ${data?.column_name}`}
                             className="frequency-plot"
                           />
@@ -163,13 +159,13 @@ console.log(loadingRef);
                                 className="grouped-visualization-section"
                               >
                                 <img
-                                  src={`http://localhost:8000/${plotUrl}`}
+                                  src={getFullUrl(plotUrl)}
                                   alt={`Grouped Visualization for ${data.column_name}`}
                                   className="grouped-visualization"
                                 />
                                 <img
                                   style={{ border: "5px solid red" }}
-                                  src={`http://localhost:8000/${legendUrl}`}
+                                  src={getFullUrl(legendUrl)}
                                   alt={`Legend for Grouped Visualization of ${data.column_name}`}
                                   className="legend-image"
                                 />
@@ -199,7 +195,7 @@ console.log(loadingRef);
                   fileType="cluster_report"
                   buttonText={"Download Cluster Report"}
                 />
-                 {sessionStorage.getItem("selected_route") === "QACLSAIR" && (
+                {sessionStorage.getItem("selected_route") === "QACLSAIR" && (
                   <button
                     onClick={() => navigate("/sentiment")}
                     className="w-fit cursor-pointer bg-[#00425F] text-white border border-[#00425F] py-1 px-5 text-sm rounded-full"
@@ -207,7 +203,6 @@ console.log(loadingRef);
                     Proceed to Sentiment Analysis
                   </button>
                 )}
-
               </div>
             </>
           )}

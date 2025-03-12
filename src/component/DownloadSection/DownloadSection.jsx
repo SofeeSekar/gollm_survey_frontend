@@ -12,7 +12,9 @@ const DownloadSection = ({
       const response = await fetch(downloadEndpoint, {
         method: "GET",
         headers: {
-          "session-id": '16a3e09d-e93e-465f-af85-7ff8a593d1da',
+          "Content-Type": "application/json",
+          "Accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "session-id": sessionId,
         },
       });
 
